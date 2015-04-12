@@ -12,47 +12,48 @@ public class TernaryServiceTest {
 	@Before
 	public void setUp() {
 		ternaryService = new TernaryService();
+		ternaryService.setBaseValue(3);
 	}
 
 	@Test
-	public void testConvertToTernaryValues() {
-		assertTrue(convertToTernary(0, 0));
+	public void testConvertFromDecimalToTernary() {
+		assertTrue(convertFromDecimal(0, 0));
 		
-		assertTrue(convertToTernary(1, 1));
+		assertTrue(convertFromDecimal(1, 1));
 		
-		assertTrue(convertToTernary(2, 2));
+		assertTrue(convertFromDecimal(2, 2));
 		
-		assertTrue(convertToTernary(3, 10));
+		assertTrue(convertFromDecimal(3, 10));
 		
-		assertTrue(convertToTernary(4, 11));
+		assertTrue(convertFromDecimal(4, 11));
 		
-		assertTrue(convertToTernary(5, 12));
+		assertTrue(convertFromDecimal(5, 12));
 		
-		assertTrue(convertToTernary(6, 20));
+		assertTrue(convertFromDecimal(6, 20));
 		
-		assertTrue(convertToTernary(7, 21));
+		assertTrue(convertFromDecimal(7, 21));
 		
-		assertTrue(convertToTernary(8, 22));
+		assertTrue(convertFromDecimal(8, 22));
 		
-		assertTrue(convertToTernary(9, 100));
+		assertTrue(convertFromDecimal(9, 100));
 		
-		assertTrue(convertToTernary(10, 101));
+		assertTrue(convertFromDecimal(10, 101));
 		
-		assertTrue(convertToTernary(26, 222));
+		assertTrue(convertFromDecimal(26, 222));
 		
-		assertTrue(convertToTernary(27, 1000));
+		assertTrue(convertFromDecimal(27, 1000));
 		
-		assertTrue(convertToTernary(81, 10000));
+		assertTrue(convertFromDecimal(81, 10000));
 		
-		assertTrue(convertToTernary(99, 10200));
+		assertTrue(convertFromDecimal(99, 10200));
 		
-		assertTrue(convertToTernary(1000, 1101001));
+		assertTrue(convertFromDecimal(1000, 1101001));
 		
-		assertTrue(convertToTernary(1000000, 1212210202001L));
+		assertTrue(convertFromDecimal(1000000, 1212210202001L));
 	}
 	
 	@Test
-	public void testConvertToDecimalValues() {
+	public void testConvertFromTernaryToDecimal() {
 		Ternary t =  new Ternary();
 		
 		t.setTernaryValue(0);
@@ -109,27 +110,72 @@ public class TernaryServiceTest {
 		t.setTernaryValue(1212210202001L);
 		assertTrue(convertToDecimal(t, 1000000));
 	}
+
+	@Test
+	public void testConvertFromDecimalToQuaternary() {
+		//	testing base 4:	quaternary
+		ternaryService.setBaseValue(4);
+		
+		assertTrue(convertFromDecimal(0, 0));
+		
+		assertTrue(convertFromDecimal(1, 1));
+		
+		assertTrue(convertFromDecimal(2, 2));
+		
+		assertTrue(convertFromDecimal(3, 3));
+		
+		assertTrue(convertFromDecimal(4, 10));
+		
+		assertTrue(convertFromDecimal(5, 11));
+		
+		assertTrue(convertFromDecimal(6, 12));
+		
+		assertTrue(convertFromDecimal(7, 13));
+		
+		assertTrue(convertFromDecimal(8, 20));
+		
+		assertTrue(convertFromDecimal(9, 21));
+		
+		assertTrue(convertFromDecimal(10, 22));
+		
+		assertTrue(convertFromDecimal(11, 23));
+		
+		assertTrue(convertFromDecimal(12, 30));
+		
+		assertTrue(convertFromDecimal(13, 31));
+		
+		assertTrue(convertFromDecimal(14, 32));
+		
+		assertTrue(convertFromDecimal(15, 33));
+		
+		assertTrue(convertFromDecimal(16, 100));
+	}
+	
+	@Test
+	public void testConvertFromQuaternaryToDecimal() {
+		
+	}
 	
 	@Test
 	public void testConvertToTernaryLessThanZero() {
-		Ternary t = ternaryService.convertToTernary(-1);
+		Ternary t = ternaryService.convertFromDecimal(-1);
 				
 		assertNull(t);
 	}
 	
 	@Test
 	public void testCovertToTernaryGreaterThanOneMillion() {
-		Ternary t = ternaryService.convertToTernary(1000001);
+		Ternary t = ternaryService.convertFromDecimal(1000001);
 		
 		assertNull(t);
 	}
 	
-	private boolean convertToTernary(long decimalValue, long expectedTernaryValue) {
-		Ternary t = ternaryService.convertToTernary(decimalValue);
+	private boolean convertFromDecimal(long decimalValue, long expectedValue) {
+		Ternary t = ternaryService.convertFromDecimal(decimalValue);
 		
 		if(t == null) return false;
 		
-		return expectedTernaryValue == t.getTernaryValue();
+		return expectedValue == t.getTernaryValue();
 	}
 	
 	private boolean convertToDecimal(Ternary t, long expectedDecimcalValue) {
